@@ -504,11 +504,15 @@ namespace Iteedee.ApkReader
                             char c;
                             lastPosition = br.BaseStream.Position;
                             br.BaseStream.Seek(pos, SeekOrigin.Begin);
-                            while ((c = br.ReadChar()) != 0)
-                            {
-                                strings[i] += c;
-                                br.ReadChar();
-                                pos += 2;
+                            try{
+                                while ((c = br.ReadChar()) != 0)
+                                {
+                                    strings[i] += c;
+                                    br.ReadChar();
+                                    pos += 2;
+                                }
+                            }catch (Exception e){
+                                Debug.WriteLine("Unexpected char");
                             }
                             br.BaseStream.Seek(lastPosition, SeekOrigin.Begin);
                         }
